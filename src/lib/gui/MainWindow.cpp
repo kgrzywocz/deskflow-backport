@@ -99,7 +99,7 @@ MainWindow::MainWindow()
   // Setup Actions
   m_actionAbout->setText(tr("About %1...").arg(kAppName));
   m_actionAbout->setMenuRole(QAction::AboutRole);
-  m_actionAbout->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout));
+  m_actionAbout->setIcon(QIcon::fromTheme("help-about"));
 
 #ifndef Q_OS_WIN
   m_actionQuit->setShortcut(QKeySequence::Quit);
@@ -126,7 +126,7 @@ MainWindow::MainWindow()
   m_actionRestartCore->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 
   m_actionStopCore->setShortcut(QKeySequence(tr("Ctrl+T")));
-  m_actionStopCore->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ProcessStop));
+  m_actionStopCore->setIcon(QIcon::fromTheme("process-stop"));
 
   m_actionReportBug->setIcon(QIcon(QIcon::fromTheme(QStringLiteral("tools-report-bug"))));
 
@@ -602,7 +602,7 @@ void MainWindow::updateSecurityIcon(bool visible)
       secureSocket ? tr("%1 Encryption Enabled").arg(m_coreProcess.secureSocketVersion()) : tr("Encryption Disabled");
   m_lblSecurityStatus->setToolTip(txt);
 
-  const auto icon = QIcon::fromTheme(secureSocket ? QIcon::ThemeIcon::SecurityHigh : QIcon::ThemeIcon::SecurityLow);
+  const auto icon = QIcon::fromTheme(secureSocket ? "security-high" : "security-low");
   m_lblSecurityStatus->setPixmap(icon.pixmap(QSize(32, 32)));
 }
 
@@ -959,7 +959,7 @@ void MainWindow::coreProcessStateChanged(CoreProcessState state)
     connect(ui->btnToggleCore, &QPushButton::clicked, m_actionStopCore, &QAction::trigger, Qt::UniqueConnection);
 
     ui->btnToggleCore->setText(tr("&Stop"));
-    ui->btnToggleCore->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ProcessStop));
+    ui->btnToggleCore->setIcon(QIcon::fromTheme("process-stop"));
 
     ui->btnRestartCore->setEnabled(true);
     m_actionStartCore->setVisible(false);

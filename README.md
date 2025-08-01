@@ -1,3 +1,11 @@
+# Deskflow Ubuntu 24.04 backport 
+Quick and dirty backport of Deskflow to Ubuntu 24.04.2
+Use libport from debian testing:
+https://packages.debian.org/trixie/amd64/libportal1/download
+https://packages.debian.org/trixie/amd64/gir1.2-xdp-1.0/download
+
+# Original README.md
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/deskflow/deskflow-artwork/blob/main/logo/deskflow-logo-dark-200px.png?raw=true">
   <source media="(prefers-color-scheme: light)" srcset="https://github.com/deskflow/deskflow-artwork/blob/main/logo/deskflow-logo-light-200px.png?raw=true">

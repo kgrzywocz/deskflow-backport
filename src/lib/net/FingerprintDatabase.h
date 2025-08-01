@@ -17,8 +17,8 @@ public:
   void read(const QString &path);
   bool write(const QString &path);
 
-  void readStream(QTextStream &in);
-  bool writeStream(QTextStream &out);
+  void readStream(std::istream &in);
+  bool writeStream(std::ostream &out);
 
   void clear();
   void addTrusted(const Fingerprint &fingerprint);

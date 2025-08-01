@@ -145,9 +145,9 @@ void PortalRemoteDesktop::handleInitSession(GObject *object, GAsyncResult *res)
 gboolean PortalRemoteDesktop::initSession()
 {
   LOG_DEBUG("setting up remote desktop session with restore token %s", m_sessionRestoreToken);
-  xdp_portal_create_remote_desktop_session_full(
+  xdp_portal_create_remote_desktop_session(
       m_portal, static_cast<XdpDeviceType>(XDP_DEVICE_POINTER | XDP_DEVICE_KEYBOARD), XDP_OUTPUT_NONE,
-      XDP_REMOTE_DESKTOP_FLAG_NONE, XDP_CURSOR_MODE_HIDDEN, XDP_PERSIST_MODE_TRANSIENT, m_sessionRestoreToken,
+      XDP_REMOTE_DESKTOP_FLAG_NONE, XDP_CURSOR_MODE_HIDDEN,
       nullptr, // cancellable
       [](GObject *obj, GAsyncResult *res, gpointer data) {
         static_cast<PortalRemoteDesktop *>(data)->handleInitSession(obj, res);

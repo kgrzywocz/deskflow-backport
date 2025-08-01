@@ -161,10 +161,10 @@ QString formatSSLFingerprintColumns(const QByteArray &fingerprint)
     formatedString.append(hex.mid(0, kmaxColumns));
     hex.remove(0, kmaxColumns);
     if (formatedString.endsWith(':'))
-      formatedString.removeLast();
+      formatedString.chop(1);
     formatedString.append('\n');
   }
-  formatedString.removeLast();
+  formatedString.chop(1);
   return formatedString;
 }
 

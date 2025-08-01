@@ -20,7 +20,7 @@ v2:sha1:03040506ab
 AB:CD:EF:00:01:02:03:04:05:06:07:08:09:10:11:12:13:14:15:16
 )";
 
-  QTextStream stream(&data);
+  std::stringstream stream(data.toStdString());
 
   FingerprintDatabase db;
   db.readStream(stream);
@@ -37,7 +37,8 @@ AB:CD:EF:00:01:02:03:04:05:06:07:08:09:10:11:12:13:14:15:16
 void FingerprintDatabaseTests::writeFile()
 {
   QString out;
-  QTextStream stream(&out);
+  // QTextStream stream(&out);
+  std::stringstream stream(out.toStdString());
 
   FingerprintDatabase db;
   db.addTrusted(
@@ -48,7 +49,7 @@ void FingerprintDatabaseTests::writeFile()
   );
   db.writeStream(stream);
 
-  QCOMPARE(stream.readAll(), R"(v2:sha1:abcdef0001020304050607080910111213141516
+  QCOMPARE(stream.str(), R"(v2:sha1:abcdef0001020304050607080910111213141516
 v2:sha1:0001020304050607080910111213141516abcdef
 )");
 }

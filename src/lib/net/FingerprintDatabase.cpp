@@ -9,31 +9,22 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <fstream>
 
 void FingerprintDatabase::read(const QString &path)
 {
-  QFile file(path);
-  if (!file.open(QIODevice::ReadOnly))
-    return;
-  QTextStream in(&file);
+  std::ifstream in(path.toStdString());
   readStream(in);
 }
 
-void FingerprintDatabase::readStream(QTextStream &in)
+void FingerprintDatabase::readStream(std::istream &in)
 {
-  // Make sure the stream has something to read
-  if (!in.device() && !in.string())
-    return;
-
-  if (in.device() && !in.device()->isReadable())
-    return;
-
-  if (in.string() && in.string()->isEmpty())
-    return;
 
   QString line;
-  while (!in.atEnd()) {
-    line = in.readLine();
+  while (in) {
+    std::string stdline;
+    std::getline(in, stdline);
+    line = QString::fromStdString(stdline);
     if (line.isEmpty())
       continue;
     auto fingerprint = Fingerprint::fromDbLine(line);
@@ -46,24 +37,15 @@ void FingerprintDatabase::readStream(QTextStream &in)
 
 bool FingerprintDatabase::write(const QString &path)
 {
-  QFile file(path);
-  if (!file.open(QIODevice::WriteOnly))
-    return false;
-  QTextStream out(&file);
+  std::ofstream out(path.toStdString());
   return (writeStream(out));
 }
 
-bool FingerprintDatabase::writeStream(QTextStream &out)
+bool FingerprintDatabase::writeStream(std::ostream &out)
 {
-  // Make sure the stream has somewhere to write
-  if (!out.device() && !out.string())
-    return false;
-
-  if (out.device() && !out.device()->isWritable())
-    return false;
 
   for (const auto &fingerprint : std::as_const(m_fingerprints)) {
-    out << fingerprint.toDbLine() << "\n";
+    out << fingerprint.toDbLine().toStdString() << "\n";
   }
   return true;
 }
